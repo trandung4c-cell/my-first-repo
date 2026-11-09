@@ -1,6 +1,0 @@
-git clone https://github.com/ten-cua-ban/my-first-repo.git
-cd my-first-repo
-# tạo/chép file code vào thư mục này
-git add .
-git commit -m "Initial commit"
-git push
