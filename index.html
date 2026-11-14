@@ -1,11 +1,251 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang của tôi</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dũng Ez Store - Trang phục Cosplay Halloween</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&family=Playfair+Display:ital,wght@0,800;1,800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#0e0a1f; --purple:#241345; --moon:#f4efd0; --pumpkin:#ff7a1a; --blood:#b3122e; --muted:#a79fc4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Be Vietnam Pro',Arial,sans-serif;background:var(--night);color:var(--moon);line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  h1,h2,.logo{font-family:'Playfair Display',Georgia,serif;font-weight:800}
+
+  /* ===== Thanh menu ===== */
+  header{position:sticky;top:0;z-index:10;background:rgba(14,10,31,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid #3a2766;display:flex;justify-content:space-between;align-items:center;padding:14px 5%}
+  .logo{font-size:1.4rem}
+  .logo span{color:var(--pumpkin)}
+  nav a{margin-left:22px;font-size:.95rem;color:var(--muted)}
+  nav a:hover{color:var(--pumpkin)}
+  .cart-btn{background:var(--pumpkin);color:var(--night);border:0;border-radius:999px;padding:8px 16px;
+    font:600 .9rem 'Be Vietnam Pro',sans-serif;cursor:pointer}
+  :focus-visible{outline:3px solid var(--moon);outline-offset:2px}
+
+  /* ===== Hero: màn đêm + ánh trăng + dơi ===== */
+  .hero{position:relative;overflow:hidden;min-height:78vh;padding:60px 5%;display:grid;
+    grid-template-columns:1.2fr 1fr;gap:30px;align-items:center;
+    background:
+      radial-gradient(2px 2px at 12% 20%,#fff,transparent),radial-gradient(2px 2px at 30% 65%,#fff,transparent),
+      radial-gradient(1.5px 1.5px at 55% 15%,#fff,transparent),radial-gradient(1.5px 1.5px at 75% 50%,#fff,transparent),
+      radial-gradient(2px 2px at 90% 25%,#fff,transparent),radial-gradient(1.5px 1.5px at 45% 85%,#fff,transparent),
+      linear-gradient(180deg,#0e0a1f 0%,#241345 100%)}
+  .hero h1{font-size:clamp(2.2rem,5.5vw,4rem);line-height:1.1}
+  .hero p{margin:16px 0 26px;color:var(--muted);max-width:46ch}
+  .btn{display:inline-block;background:var(--blood);color:#fff;padding:13px 26px;border-radius:8px;font-weight:600;border:0;cursor:pointer;font-family:inherit;font-size:1rem}
+  .btn:hover{background:#d4173a}
+  .moon{justify-self:center;width:min(300px,70vw);aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#fffbe6,var(--moon) 55%,#d8cf97);
+    box-shadow:0 0 60px 20px rgba(244,239,208,.35),0 0 160px 60px rgba(244,239,208,.12);position:relative}
+  .moon::before,.moon::after{content:"";position:absolute;border-radius:50%;background:rgba(150,140,90,.25)}
+  .moon::before{width:22%;height:22%;top:22%;left:55%}
+  .moon::after{width:14%;height:14%;top:60%;left:28%}
+  .bat{position:absolute;font-size:1.8rem;left:-60px;animation:fly 9s linear infinite;opacity:.9}
+  .bat:nth-child(1){top:14%;animation-delay:0s}
+  .bat:nth-child(2){top:34%;animation-delay:3s;font-size:1.3rem}
+  .bat:nth-child(3){top:58%;animation-delay:5.5s}
+  .bat:nth-child(4){top:76%;animation-delay:1.5s;font-size:1.2rem}
+  @keyframes fly{
+    0%{transform:translate(0,0)}25%{transform:translate(28vw,-26px)}
+    50%{transform:translate(56vw,10px)}75%{transform:translate(84vw,-22px)}100%{transform:translate(115vw,0)}}
+  @media(prefers-reduced-motion:reduce){.bat{animation:none;left:70%}}
+
+  /* ===== Sản phẩm ===== */
+  section{padding:50px 5%}
+  h2{font-size:1.9rem;margin-bottom:6px}
+  .sub{color:var(--muted);margin-bottom:22px}
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+  .filters button{border:2px solid var(--pumpkin);background:transparent;color:var(--pumpkin);padding:7px 18px;
+    border-radius:999px;font:600 .9rem 'Be Vietnam Pro',sans-serif;cursor:pointer}
+  .filters button.on{background:var(--pumpkin);color:var(--night)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:22px}
+  .item{background:var(--purple);border:1px solid #3a2766;border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+  .pic{height:190px;display:grid;place-items:center;font-size:5rem}
+  .info{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .info h3{font-size:1.02rem}
+  .desc{font-size:.85rem;color:var(--muted)}
+  .price{font-weight:600;color:var(--pumpkin);font-size:1.1rem}
+  .info select{background:var(--night);color:var(--moon);border:1px solid #3a2766;border-radius:6px;padding:7px;font-family:inherit}
+  .info .btn{margin-top:auto;padding:10px}
+
+  .pager{display:flex;justify-content:center;gap:10px;margin-top:30px}
+  .pager button{min-width:44px;border:2px solid var(--pumpkin);background:transparent;color:var(--pumpkin);
+    padding:8px 14px;border-radius:8px;font:600 .95rem 'Be Vietnam Pro',sans-serif;cursor:pointer}
+  .pager button.on{background:var(--pumpkin);color:var(--night)}
+  .pager button:disabled{opacity:.35;cursor:default}
+
+  /* ===== Giỏ hàng ===== */
+  #cart{position:fixed;top:0;right:-400px;width:370px;max-width:100%;height:100%;background:var(--purple);
+    border-left:1px solid #3a2766;padding:22px;transition:right .3s;z-index:20;display:flex;flex-direction:column}
+  #cart.open{right:0}
+  #cart .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  #cart .top h2{margin:0;font-size:1.5rem}
+  #cart .top button{background:none;border:0;font-size:1.8rem;cursor:pointer;color:var(--moon)}
+  #cart-list{flex:1;overflow:auto}
+  .row{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid #3a2766;font-size:.93rem}
+  .row button{border:0;background:none;color:#ff6b81;cursor:pointer}
+  .total{font-weight:600;font-size:1.15rem;margin:14px 0}
+  .empty{color:var(--muted)}
+
+  /* ===== Liên hệ ===== */
+  .contact{background:var(--purple);text-align:center;border-top:1px solid #3a2766}
+  .contact p{color:var(--muted)}
+  footer{text-align:center;padding:18px;font-size:.85rem;color:var(--muted)}
+
+  @media(max-width:700px){.hero{grid-template-columns:1fr;text-align:center}.hero p{margin-inline:auto}nav{display:none}}
+</style>
 </head>
 <body>
-  <h1>Xin chào, website chạy rồi!</h1>
+
+<header>
+  <a href="#" class="logo">Dũng <span>Ez</span> Store</a>
+  <nav>
+    <a href="#home">Trang chủ</a>
+    <a href="#products">Trang phục</a>
+    <a href="#contact">Liên hệ</a>
+  </nav>
+  <button class="cart-btn" onclick="toggleCart()">Giỏ hàng (<span id="count">0</span>)</button>
+</header>
+
+<div class="hero" id="home">
+  <span class="bat" aria-hidden="true">🦇</span><span class="bat" aria-hidden="true">🦇</span>
+  <span class="bat" aria-hidden="true">🦇</span><span class="bat" aria-hidden="true">🦇</span>
+  <div>
+    <h1>Đêm nay, bạn là ai?</h1>
+    <p>Ma cà rồng, xác ướp, phù thủy, thần chết... Chọn bộ trang phục cosplay Halloween và bước ra dưới ánh trăng.</p>
+    <a href="#products" class="btn">Chọn trang phục</a>
+  </div>
+  <div class="moon" role="img" aria-label="Trăng tròn"></div>
+</div>
+
+<section id="products">
+  <h2>Trang phục Cosplay</h2>
+  <p class="sub">Mỗi bộ gồm đồ chính và phụ kiện đi kèm. Chọn size trước khi thêm vào giỏ.</p>
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="grid"></div>
+  <div class="pager" id="pager"></div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Liên hệ đặt hàng</h2>
+  <p>Điện thoại / Zalo: 0900 000 000</p>
+  <p>Địa chỉ: Hà Tĩnh, Việt Nam</p>
+</section>
+
+<footer>© 2026 Dũng Ez Store. Website bán trang phục Halloween.</footer>
+
+<aside id="cart">
+  <div class="top"><h2>Giỏ hàng</h2><button onclick="toggleCart()" aria-label="Đóng">×</button></div>
+  <div id="cart-list"></div>
+  <div class="total">Tổng: <span id="total">0đ</span></div>
+  <button class="btn" onclick="checkout()">Đặt hàng</button>
+</aside>
+
+<script>
+  // ===== DỮ LIỆU SẢN PHẨM: muốn thêm/sửa trang phục thì sửa ở đây =====
+  const products = [
+    {id:1, name:"Bá tước ma cà rồng",  price:450000, cat:"Ma cà rồng", icon:"🧛", color:"#4a1530", desc:"Áo choàng đỏ đen, cổ cao, răng nanh"},
+    {id:2, name:"Nữ hoàng ma cà rồng", price:480000, cat:"Ma cà rồng", icon:"🧛‍♀️", color:"#3b1247", desc:"Váy dài gothic, áo choàng, vòng cổ"},
+    {id:3, name:"Xác ướp Ai Cập",      price:320000, cat:"Xác ướp",    icon:"🤕", color:"#4a4332", desc:"Bộ băng vải cũ kèm mặt nạ vàng"},
+    {id:4, name:"Xác ướp công chúa",   price:360000, cat:"Xác ướp",    icon:"🤕", color:"#3f3a52", desc:"Băng vải rách, trang sức cổ đại"},
+    {id:5, name:"Phù thủy đêm trăng",  price:390000, cat:"Phù thủy",   icon:"🧙‍♀️", color:"#2b1a5c", desc:"Váy tím, nón nhọn, chổi bay"},
+    {id:6, name:"Thần chết",           price:420000, cat:"Ma & Zombie",icon:"💀", color:"#1d1d2e", desc:"Áo choàng đen có mũ trùm, lưỡi hái"},
+    {id:7, name:"Cô dâu ma",           price:410000, cat:"Ma & Zombie",icon:"👻", color:"#34345a", desc:"Váy cưới rách, mạng che mặt"},
+    {id:8, name:"Zombie công sở",      price:280000, cat:"Ma & Zombie",icon:"🧟", color:"#1f3a2a", desc:"Vest rách, hóa trang máu giả"},
+    {id:9, name:"Người sói",           price:520000, cat:"Thú dữ",     icon:"🐺", color:"#3a2a1f", desc:"Bộ lông, mặt nạ sói, găng vuốt"},
+    {id:10,name:"Bí ngô ma quái",      price:300000, cat:"Thú dữ",     icon:"🎃", color:"#5a2d0c", desc:"Mũ bí ngô cam, áo choàng đen"},
+    {id:11,name:"Pháp sư bóng đêm",    price:440000, cat:"Phù thủy",   icon:"🧙", color:"#24235a", desc:"Áo choàng xanh thẫm, gậy phép, mũ nhọn"},
+    {id:12,name:"Phù thủy rừng sâu",   price:370000, cat:"Phù thủy",   icon:"🧙‍♀️", color:"#1c3a2f", desc:"Váy rêu xanh, nón rộng vành, túi thuốc"},
+    {id:13,name:"Thợ săn ma cà rồng",  price:460000, cat:"Ma cà rồng", icon:"🏹", color:"#33210f", desc:"Áo da dài, nỏ đồ chơi, cọc gỗ"},
+    {id:14,name:"Hoàng tử ma cà rồng", price:430000, cat:"Ma cà rồng", icon:"🧛", color:"#3d1030", desc:"Áo vest nhung, khăn choàng, huy hiệu"},
+    {id:15,name:"Pharaoh bất tử",      price:390000, cat:"Xác ướp",    icon:"👑", color:"#4d3d12", desc:"Vòng cổ vàng, mũ pharaoh, băng vải"},
+    {id:16,name:"Hề ma quái",          price:310000, cat:"Ma & Zombie",icon:"🤡", color:"#4a1126", desc:"Đồ sọc đỏ trắng, tóc xù, mũi đỏ"},
+    {id:17,name:"Bộ xương dạ quang",   price:340000, cat:"Ma & Zombie",icon:"☠️", color:"#1a2a40", desc:"Bộ đồ in xương, phát sáng trong tối"},
+    {id:18,name:"Búp bê ma ám",        price:350000, cat:"Ma & Zombie",icon:"🪆", color:"#4a2a3a", desc:"Váy ren cổ điển, tóc bím, vết nứt sứ"},
+    {id:19,name:"Mèo đen huyền bí",    price:260000, cat:"Thú dữ",     icon:"🐈‍⬛", color:"#25193d", desc:"Bộ đồ đen, tai mèo, đuôi dài"},
+    {id:20,name:"Người dơi",           price:400000, cat:"Thú dữ",     icon:"🦇", color:"#161a33", desc:"Áo choàng cánh dơi, mặt nạ, găng tay"}
+  ];
+  const sizes = ["S","M","L","XL"];
+
+  let cart = [];            // mỗi phần tử: {id, size, qty}
+  let currentCat = "Tất cả";
+  let page = 1;
+  const PER_PAGE = 10;   // số trang phục mỗi trang
+  const fmt = n => n.toLocaleString("vi-VN") + "đ";
+
+  function drawFilters(){
+    const cats = ["Tất cả", ...new Set(products.map(p => p.cat))];
+    document.getElementById("filters").innerHTML = cats.map(c =>
+      `<button class="${c===currentCat?'on':''}" onclick="setCat('${c}')">${c}</button>`).join("");
+  }
+  function setCat(c){ currentCat = c; page = 1; drawFilters(); drawProducts(); }
+
+  function drawProducts(){
+    const list = currentCat==="Tất cả" ? products : products.filter(p => p.cat===currentCat);
+    const pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+    if(page > pages) page = pages;
+    const shown = list.slice((page-1)*PER_PAGE, page*PER_PAGE);
+    drawPager(pages);
+    document.getElementById("grid").innerHTML = shown.map(p => `
+      <div class="item">
+        <div class="pic" style="background:radial-gradient(circle at 50% 40%,${p.color},#150d2b)">${p.icon}</div>
+        <div class="info">
+          <h3>${p.name}</h3>
+          <div class="desc">${p.desc}</div>
+          <div class="price">${fmt(p.price)}</div>
+          <select id="size-${p.id}" aria-label="Chọn size">${sizes.map(s=>`<option>${s}</option>`).join("")}</select>
+          <button class="btn" onclick="addToCart(${p.id})">Thêm vào giỏ</button>
+        </div>
+      </div>`).join("");
+  }
+
+  function drawPager(pages){
+    const el = document.getElementById("pager");
+    if(pages <= 1){ el.innerHTML = ""; return; }
+    let h = `<button onclick="goPage(${page-1})" ${page===1?'disabled':''}>‹ Trước</button>`;
+    for(let i=1;i<=pages;i++) h += `<button class="${i===page?'on':''}" onclick="goPage(${i})">Page ${i}</button>`;
+    h += `<button onclick="goPage(${page+1})" ${page===pages?'disabled':''}>Sau ›</button>`;
+    el.innerHTML = h;
+  }
+  function goPage(n){
+    page = n; drawProducts();
+    document.getElementById("products").scrollIntoView({behavior:"smooth"});
+  }
+
+  function addToCart(id){
+    const size = document.getElementById("size-"+id).value;
+    const found = cart.find(i => i.id===id && i.size===size);
+    found ? found.qty++ : cart.push({id, size, qty:1});
+    drawCart();
+    document.getElementById("cart").classList.add("open");
+  }
+  function removeFromCart(id, size){ cart = cart.filter(i => !(i.id===id && i.size===size)); drawCart(); }
+  function toggleCart(){ document.getElementById("cart").classList.toggle("open"); }
+
+  function drawCart(){
+    let total = 0, count = 0;
+    const html = cart.map(i => {
+      const p = products.find(x => x.id===i.id);
+      total += p.price * i.qty; count += i.qty;
+      return `<div class="row"><span>${p.name} (${i.size}) × ${i.qty}</span>
+        <span>${fmt(p.price*i.qty)} <button onclick="removeFromCart(${p.id},'${i.size}')" aria-label="Xóa">✕</button></span></div>`;
+    }).join("");
+    document.getElementById("cart-list").innerHTML = html || '<p class="empty">Giỏ hàng đang trống. Chọn một bộ trang phục để thêm vào.</p>';
+    document.getElementById("total").textContent = fmt(total);
+    document.getElementById("count").textContent = count;
+  }
+
+  function checkout(){
+    if(!cart.length){ alert("Giỏ hàng đang trống."); return; }
+    alert("Cảm ơn bạn đã đặt hàng! Dũng Ez Store sẽ liên hệ qua Zalo để xác nhận.");
+    cart = []; drawCart(); toggleCart();
+  }
+
+  drawFilters(); drawProducts(); drawCart();
+</script>
 </body>
 </html>
